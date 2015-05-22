@@ -1,36 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using EnvDTE;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TemplateWizard;
 
 namespace TemplateBuilder {
-    public class RootWizard : IWizard {
-        // Use to communicate $saferootprojectname$ to ChildWizard     
-        public static Dictionary<string, string> GlobalDictionary = new Dictionary<string, string>();
-
-        // Add global replacement parameters     
-        public void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, WizardRunKind runKind, object[] customParams) {
-            // Place "$saferootprojectname$ in the global dictionary. 
-            // Copy from $safeprojectname$ passed in my root vstemplate         
+    public class RootWizard : WizardBase {
+        /// <summary>
+        /// Stores the "$safeprojectname$" for use in child projects.
+        /// </summary>
+        public override void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, WizardRunKind runKind, object[] customParams) {
             GlobalDictionary["$saferootprojectname$"] = replacementsDictionary["$safeprojectname$"];
-        }
-
-        public bool ShouldAddProjectItem(string filePath) {
-            return true;
-        }
-
-        public void RunFinished() {
-        }
-
-        public void BeforeOpeningFile(ProjectItem projectItem) {
-        }
-
-        public void ProjectItemFinishedGenerating(ProjectItem projectItem) {
-
-        }
-
-        public void ProjectFinishedGenerating(Project project) {
-
         }
     }
 }
